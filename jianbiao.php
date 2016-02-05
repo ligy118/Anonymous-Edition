@@ -19,11 +19,18 @@ else
 mysql_select_db("app_ligy118", $con);
 $sql = "CREATE TABLE neirong
 (
+zhujian int,
 yonghu text(15),
 time datetime,
 neirong text(1000)
 )";
 mysql_query($sql,$con);
-
+mysql_select_db("app_ligy118", $con);
+$sql = "CREATE TABLE guanliyuan
+(
+zhanghuming text(15),
+mima text(1000)
+)";
+mysql_query($sql,$con);
 mysql_close($con);
 ?>

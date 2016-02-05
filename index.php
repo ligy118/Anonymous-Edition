@@ -13,23 +13,34 @@ date_default_timezone_set('prc');
     <input type="reset" value="重置"  name="reset" />
 </form>
 <?php
-$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-if (!$con)
-{
-    die('Could not connect: ' . mysql_error());
-}
+if(!empty($_POST['neirong'])){
+    $con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+    if (!$con)
+    {
+        die('Could not connect: ' . mysql_error());
+    }
 
-mysql_select_db("app_ligy118", $con);
-
-$sql="INSERT INTO neirong (yonghu, time, neirong)
+    mysql_select_db("app_ligy118", $con);
+    $zhujiani = 0;
+    $result = mysql_query("SELECT * FROM neirong");
+    while($row = mysql_fetch_array($result))
+    {
+        if($zhujiani<$row['zhujian'])
+        {
+            $zhujiani=$row['zhujian'];
+        }
+    }
+    $zhujiani++;
+    $sql="INSERT INTO neirong (yonghu, time, neirong,zhujian)
 VALUES
-('yonghu','date(‘Y-m-d H:i:s’)','$_POST[neirong]')";//yonghu即cookies,待添加
+('yonghu','date(‘Y-m-d H:i:s’)','$_POST[neirong]','$zhujiani')";//yonghu即cookies,待添加
 
-if (!mysql_query($sql,$con))
-{
-    die('Error: ' . mysql_error());
+    if (!mysql_query($sql,$con))
+    {
+        die('Error: ' . mysql_error());
+    }
+    mysql_close($con);
 }
-mysql_close($con)
 ?>
 <br>
 <?php
@@ -45,15 +56,14 @@ $result = mysql_query("SELECT * FROM neirong");
 $n = 0;
 while($row = mysql_fetch_array($result))
 {
+    $zj[$n]=$row['zhujian'];
     $tm[$n]=$row['time'];
     $nr[$n]=$row['neirong'];
     $n++;
-    /*   echo "用户XXX " .  $row['time']."说 ".$row['neirong'];
-       echo "<br /><br />";*/
 }
 for($i=$n-1;$i>=0;$i--)
 {
-    echo "用户XXX " .  $tm[$i]."说 ".$nr[$i];
+    echo $zj[$i].' '."用户XXX " .  $tm[$i]."说 ".$nr[$i];
     echo "<br /><br />";
 }
 
