@@ -15,9 +15,11 @@ if (!$ok_to_browse ) {
 ?>
 
 <?php
-echo" <form action='jifeng.php' method='post'>
-                    <input type='submit' value='解封此cookie' />
-                    <input type=\"text\" name=\"jiefeng\"><br>
+echo" <form action='jiefeng.php' method='post'>
+
+                    解封此cookie <input type='text' name='jiefeng' >
+                    <input type='submit' value='解封' >
+                    <br>
                     </form>";
 //$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
 $con = mysql_connect("localhost","root","");
