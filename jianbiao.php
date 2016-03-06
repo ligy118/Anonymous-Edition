@@ -1,20 +1,20 @@
 <?php
-$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-//$con = mysql_connect("localhost","root","");
+//$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+$con = mysql_connect("localhost","root","");
 if (!$con)
 {
     die('Could not connect: ' . mysql_error());
 }
-
-/*if (mysql_query("CREATE DATABASE nmb",$con))
+//sae时注释掉
+if (mysql_query("CREATE DATABASE app_ligy118",$con))
 {
     echo "Database created";
 }
 else
 {
     echo "Error creating database: " . mysql_error();
-}*/
-
+}
+//注释end
 mysql_select_db("app_ligy118", $con);
 $sql = "CREATE TABLE neirong
 (
@@ -41,7 +41,7 @@ mysql_query($sql,$con);
 mysql_select_db("app_ligy118", $con);
 $sql = "CREATE TABLE killcookie
 (
-zhanghu text;
+zhanghu text
 )";
 mysql_query($sql,$con);
 mysql_close($con);

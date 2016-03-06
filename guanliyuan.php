@@ -15,7 +15,12 @@ if (!$ok_to_browse ) {
 ?>
 
 <?php
-$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+echo" <form action='jifeng.php' method='post'>
+                    <input type='submit' value='解封此cookie' />
+                    <input type=\"text\" name=\"jiefeng\"><br>
+                    </form>";
+//$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+$con = mysql_connect("localhost","root","");
 if (!$con)
 {
     die('Could not connect: ' . mysql_error());
@@ -37,11 +42,12 @@ while($row = mysql_fetch_array($result))
     $zj[$n]=$row['zhujian'];
     $tm[$n]=$row['time'];
     $nr[$n]=$row['neirong'];
+    $yh[$n]=$row['yonghu'];
     $n++;
 }
 for($i=$n-1;$i>=0;$i--)
 {
-    echo $zj[$i].' '."用户XXX " .  $tm[$i]."说 ".$nr[$i];
+    echo $zj[$i].' '."用户 ".$yh[$i]." " .  $tm[$i]."说 ".$nr[$i];
     echo" <form action='shanchu.php' method='post'>
                     <input type = 'hidden' name='shanchu' value =  $zj[$i]>
                     <input type='submit' value='删除' /></form>";

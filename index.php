@@ -6,7 +6,10 @@ date_default_timezone_set('prc');
 <head><h1>nimingban</h1></head>
 <body>
 <?php
+echo "<a href='guanliyuandenglu.php' >管理员登录</a><br>";
+
 $cookieboo=false;
+$killcookieboo=false;
 if(isset($_COOKIE['name']))
 {
     $cookieboo=true;
@@ -21,16 +24,23 @@ if(isset($_COOKIE['name']))
     {
         if($row['zhanghu']==$_COOKIE['name']) {
             setcookie("name");
-            $cookieboo=false;
+            $killcookieboo=true;
         }
     }
+    if($killcookieboo)
+    {
+        echo $_COOKIE['name']." 你被封禁了!<br>";
+    }
+    else
+    {
+        echo "欢迎回来".$_COOKIE['name']."<br>"  ;
+    }
 
-    echo "欢迎回来".$_COOKIE['name']."<br>"  ;
 }
 if(!$cookieboo)
 {
-    $con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-    //$con = mysql_connect("localhost","root","");
+    //$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+    $con = mysql_connect("localhost","root","");
     if (!$con)
     {
         die('Could not connect: ' . mysql_error());
@@ -48,8 +58,8 @@ if(!$cookieboo)
     {
         setcookie("name",time(),time()+2592000,"/");
         echo "你得到了饼干:".$_COOKIE['name']."<br>";
-        $con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-        //$con = mysql_connect("localhost","root","");
+        //$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+        $con = mysql_connect("localhost","root","");
         if (!$con)
         {
             die('Could not connect: ' . mysql_error());
@@ -72,12 +82,12 @@ if(!$cookieboo)
 </form>
 <?php
 if(!empty($_POST['neirong'])){
-    if (!isset($_COOKIE['name'])) {
-        echo '请先获取cookies<br>';
+    if (!isset($_COOKIE['name']) || $killcookieboo ) {
+        echo '请先获取cookies或向管理员申请解封!<br>';
     }
     else {
-        $con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-        //$con = mysql_connect("localhost","root","");
+        //$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+        $con = mysql_connect("localhost","root","");
         if (!$con)
         {
         die('Could not connect: ' . mysql_error());
@@ -111,8 +121,8 @@ VALUES
 ?>
 <br>
 <?php
-$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
-//$con = mysql_connect("localhost","root","");
+//$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+$con = mysql_connect("localhost","root","");
 if (!$con)
 {
     die('Could not connect: ' . mysql_error());
@@ -138,7 +148,6 @@ for($i=$n-1;$i>=0;$i--)
 
 
 mysql_close($con);
-
 
 ?>
 </body>
