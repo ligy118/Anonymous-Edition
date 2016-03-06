@@ -6,7 +6,6 @@ if (!$ok_to_browse ) {
 //验证账号密码
     if(empty($_POST['zhanghu']))
     {
-        echo "wu sesson <br> post kong";
         echo "
             <form action='guanliyuandenglu.php' method='post'>
             用户名:
@@ -18,7 +17,6 @@ if (!$ok_to_browse ) {
     }
     else
     {
-        echo "post feikong";
         $boo=false;//没有serson或帐号密码错误;
         //$con = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
         $con = mysql_connect("localhost","root","");
