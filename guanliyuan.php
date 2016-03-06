@@ -45,6 +45,9 @@ for($i=$n-1;$i>=0;$i--)
     echo" <form action='shanchu.php' method='post'>
                     <input type = 'hidden' name='shanchu' value =  $zj[$i]>
                     <input type='submit' value='删除' /></form>";
+    echo" <form action='fengjin.php' method='post'>
+                    <input type = 'hidden' name='fengjin' value =  $yh[$i]>
+                    <input type='submit' value='封禁此cookie' /></form>";
     //      <form action="guanliyuan.php" method="post">
     //<input type="int" name="shanchu" value="$i" />
     //<input type="submit" name="button" value="删除" />
